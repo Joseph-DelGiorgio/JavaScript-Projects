@@ -1,5 +1,5 @@
 let userName = 'Joe' 
-//setting up majic 8 ball prompt:
+//setting up magic 8 ball prompt:
 
 userName ? console.log(`Hello, ${userName}`)
 : console.log('Hello!')
@@ -37,4 +37,4 @@ case 7:
 eightBall= 'Signs point to yes'
 break}
 
-console.log(`The Majic eightBall says, ${eightBall}.`)
+console.log(`The Magic eightBall says, ${eightBall}.`)
