@@ -1,0 +1,26 @@
+//Deploy to Get Top 10 Pools on Uniswap. Video tutorial: https://youtu.be/h9GvpUkEYDs
+
+const axios= require('axios')
+
+const URL= 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3'
+
+query= `
+    {
+        pools(orderBy: volumeUSD, orderDirection: desc, first:10){
+            id
+            volumeUSD,
+            liqudity
+            totalValueLockedUSD
+            token0{
+                symbol
+            }
+            token1{
+                symbol
+            }
+        }
+    }
+`
+axios.post(URL, {query: query})
+  .then((result)=>{
+    console.log(result.data.data)
+})
