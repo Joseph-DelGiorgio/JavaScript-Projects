@@ -7,7 +7,10 @@ class Surgeon{
     this._remainingVacationDays = 20;
   }
   //methods
-    get name() {
+  static generatePassword(){
+    return math.random(math.floor(200))
+  }
+  get name() {
     return this._name;
   }
   
