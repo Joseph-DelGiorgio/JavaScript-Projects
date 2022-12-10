@@ -1,0 +1,51 @@
+/ Import the Web3 library
+const Web3 = require("web3");
+
+// Connect to the Ethereum network
+const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io"));
+
+// The Ethereum address to analyze
+const address = "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2";
+
+// Get the transaction history for the Ethereum address
+const events = await web3.eth.getPastEvents("allEvents", {
+  filter: {
+    address,
+  },
+});
+
+// Iterate through the list of transactions and analyze them
+const transactions = events.map((event) => {
+  // Determine the type of transaction
+  let type;
+  if (event.event === "Transfer") {
+    type = "transfer";
+  } else if (event.event === "ContractDeployment") {
+    type = "contract deployment";
+  } else {
+    type = "other";
+  }
+
+  // Get the transaction amount and recipient
+  let amount, recipient;
+  if (type === "transfer") {
+    amount = web3.utils.fromWei(event.returnValues.value);
+    recipient = event.returnValues.to;
+  } else if (type === "contract deployment") {
+    amount = web3.utils.fromWei(event.returnValues.contractCost);
+    recipient = null;
+  } else {
+    amount = null;
+    recipient = null;
+  }
+
+  // Return the transaction information
+  return {
+    type,
+    amount,
+    recipient,
+  };
+});
+
+// Print the analyzed transaction data
+console.log(transactions);
